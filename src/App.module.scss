@@ -1,0 +1,41 @@
+.App {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  justify-content: center;
+  gap: 32px;
+  .header {
+    text-align: center;
+    grid-column: 1/2;
+    grid-row: 1/2;
+    @media (min-width: 767px) {
+      grid-column: 1/5;
+      grid-row: 1/2;
+    }
+    .logotype {
+      margin: 24px auto;
+    }
+  }
+  .filter {
+    background-color: #ffff;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0px 0px 1px;
+    grid-column: 1/2;
+    grid-row: 2/3;
+    @media (min-width: 767px) {
+      grid-column: 2/3;
+      grid-row: 2/3;
+    }
+  }
+  .menu {
+    grid-column: 1/2;
+    grid-row: 3/5;
+    margin: 0 auto;
+    @media (min-width: 767px) {
+      grid-column: 3/5;
+      grid-row: 2/4;
+    }
+  }
+}
+
