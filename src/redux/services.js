@@ -6,7 +6,7 @@ export const startGuestSession = () => {
       .then((body) => body.json())
       .then((json) => dispatch(actions.getSearchId(json)))
       .catch((error) => {
-        dispatch(actions.getError(error));
+        dispatch(actions.getError());
       });
   };
 };
@@ -16,7 +16,7 @@ export const getTicketsStack = (key) => {
       .then((body) => body.json())
       .then((json) => dispatch(actions.getAllTickets(json)))
       .catch((error) => {
-        dispatch(actions.getError(error));
+        dispatch(actions.getError());
       });
   };
 };

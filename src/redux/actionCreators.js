@@ -78,7 +78,6 @@ export const getAllTickets = ({ tickets, stop }) => ({
   tickets,
   stop,
 });
-export const getError = (error) => ({
+export const getError = () => ({
   type: 'GET_ERROR',
-  error,
 });

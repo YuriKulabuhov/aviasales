@@ -55,7 +55,7 @@ export default function TicketList() {
           <Alert severity="info">No flights found for your request</Alert>
         </Stack>
       )}
-      {error === 2 && !stop ? (
+      {error && !stop ? (
         <Stack sx={{ width: '100%' }} spacing={2}>
           <Alert severity="warning">
             The information was not fully loaded, please reload the page

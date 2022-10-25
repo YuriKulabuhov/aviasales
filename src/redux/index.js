@@ -5,14 +5,14 @@ const initialState = {
   loading: true,
   searchId: null,
   stop: false,
-  error: 0,
+  error: false,
 };
 function serviceReducer(state = initialState, { type, tickets, stop, fnc, searchId } = {}) {
   switch (type) {
     case 'GET_SEARCH_ID':
       return { ...state, searchId };
     case 'GET_ERROR':
-      return { ...state, error: state.error + 1 };
+      return { ...state, error: true };
     case 'GET_ALL_TICKETS': {
       const newPack = state.tickets.concat(tickets);
       return { ...state, tickets: newPack, stop };
