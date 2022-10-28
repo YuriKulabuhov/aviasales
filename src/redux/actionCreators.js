@@ -1,12 +1,12 @@
 // syncFunctions
-const filterCheapest = (array) => {
+export const filterCheapest = (array) => {
   function byProperty(property) {
     return (a, b) => (a[property] > b[property] ? 1 : -1);
   }
   const result = array.sort(byProperty('price'));
   return result;
 };
-const filterFastest = (array, segments = 'segments') => {
+export const filterFastest = (array, segments = 'segments') => {
   function byProperty(property) {
     return (a, b) => (a[segments][0][property] > b[segments][0][property] ? 1 : -1);
   }
@@ -50,19 +50,10 @@ export const setFilters = (filters, tickets) => {
 };
 
 // syncActions
-export const getCheapestTickets = (array) => ({
-  type: 'GET_CHEAPEST_TICKETS',
-  fnc: filterCheapest(array),
-});
-export const getFastestTickets = (array) => ({
-  type: 'GET_FASTEST_TICKETS',
-  fnc: filterFastest(array),
-});
 export const toggleCheckbox = (filterId) => ({
   type: 'CHECKED_FILTER',
   filterId,
 });
-
 export const toggleCheckAll = (idChecked) => ({
   type: 'ALL_FILTERS',
   idChecked,

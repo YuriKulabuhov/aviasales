@@ -10,12 +10,18 @@ import TicketList from './components/TicketList/TicketList';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const { stop, searchId, tickets } = useSelector((state) => state.services);
+  const { stop, searchId, tickets, error } = useSelector((state) => state.services);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (searchId === null) dispatch(services.startGuestSession());
-    if (!stop && searchId !== null) dispatch(services.getTicketsStack(searchId));
-  }, [dispatch, searchId, stop, tickets]);
+    if (error < 3) {
+      if (searchId === null) {
+        dispatch(services.startGuestSession());
+      }
+      if (!stop && searchId !== null) {
+        dispatch(services.getTicketsStack(searchId));
+      }
+    }
+  }, [searchId, tickets, error]);
 
   return (
     <div className={classes.App}>
@@ -29,7 +35,6 @@ function App() {
           </Stack>
         </Offline>
       </header>
-
       <aside className={classes.filter}>
         <Filter />
       </aside>

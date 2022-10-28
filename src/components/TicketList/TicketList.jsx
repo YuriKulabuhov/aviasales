@@ -10,36 +10,38 @@ import classes from './TicketList.module.scss';
 import { useState } from 'react';
 
 export default function TicketList() {
-  const dispatch = useDispatch();
   const { loading, stop, tickets, error } = useSelector((state) => state.services);
   const filter = useSelector((state) => state.filter);
   const [styleBtn, setStyleBtn] = useState({
-    cheapest: null,
+    cheapest: classes.active,
     fastest: null,
   });
   const [visibleCountTickets, setVisibleCountTickets] = useState(5);
-  const visibleTickets = actions.setFilters(filter, tickets).slice(0, [visibleCountTickets]);
+
   const giveMeMoreFiveTickets = () => {
     setVisibleCountTickets((value) => value + 5);
   };
   const changeFilterCheapest = () => {
-    dispatch(actions.getCheapestTickets(tickets));
     setStyleBtn({
       cheapest: classes.active,
       fastest: null,
     });
   };
   const changeFilterFastest = () => {
-    dispatch(actions.getFastestTickets(tickets));
     setStyleBtn({
       cheapest: null,
       fastest: classes.active,
     });
   };
+  const filteredTickets = actions.setFilters(filter, tickets);
+  const sortedTickets =
+    styleBtn.cheapest !== null
+      ? actions.filterCheapest(filteredTickets).slice(0, [visibleCountTickets])
+      : actions.filterFastest(filteredTickets).slice(0, [visibleCountTickets]);
 
   return (
     <div className={classes.TicketList}>
-      {!stop && error !== 2 && (
+      {!stop && error !== 3 && (
         <BarLoader color="#2196f3" loading speedMultiplier={0.3} width="100%" height={10} />
       )}
       <div className={classes.TicketSort}>
@@ -55,16 +57,16 @@ export default function TicketList() {
           <Alert severity="info">No flights found for your request</Alert>
         </Stack>
       )}
-      {error && !stop ? (
+      {error === 3 && !stop ? (
         <Stack sx={{ width: '100%' }} spacing={2}>
           <Alert severity="warning">
             The information was not fully loaded, please reload the page
           </Alert>
         </Stack>
-      ) : loading && !stop ? (
+      ) : loading ? (
         <SpinnerRoundOutlined size={88} color="2196F3" speed={80} />
       ) : (
-        visibleTickets.map((ticket) => (
+        sortedTickets.map((ticket) => (
           <TicketItem
             key={uuidv4()}
             price={ticket.price}
