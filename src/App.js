@@ -13,7 +13,7 @@ function App() {
   const { stop, searchId, tickets, error } = useSelector((state) => state.services);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (error < 3) {
+    if (error < 5) {
       if (searchId === null) {
         dispatch(services.startGuestSession());
       }
@@ -21,7 +21,7 @@ function App() {
         dispatch(services.getTicketsStack(searchId));
       }
     }
-  }, [searchId, tickets, error]);
+  }, [error, searchId, stop, tickets]);
 
   return (
     <div className={classes.App}>

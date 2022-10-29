@@ -15,7 +15,9 @@ function serviceReducer(state = initialState, { type, tickets, stop, fnc, search
       return { ...state, error: state.error + 1 };
     case 'GET_ALL_TICKETS': {
       const newPack = state.tickets.concat(tickets);
-      return { ...state, tickets: newPack, stop, loading: false };
+      return stop
+        ? { ...state, tickets: newPack, stop, error: 0, loading: false }
+        : { ...state, tickets: newPack, stop, loading: false };
     }
     case 'GET_CHEAPEST_TICKETS':
       return {
